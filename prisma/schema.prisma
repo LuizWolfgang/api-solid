@@ -11,8 +11,43 @@ datasource db {
 }
 
 model User {
-  id    String @id @default(uuid())
-  name  String
-  email String @unique
-  @@map("users")
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  password_hash String
+  created_at    DateTime @default(now())
+
+  //relacionamento
+  checkIns CheckIn[] //o colchete significa "varios N"
+
+  @@map("users") //renomeia o nome da tabela
+}
+
+model CheckIn {
+  id          String    @id @default(uuid())
+  created_at  DateTime  @default(now())
+  validate_at DateTime?
+
+  //relacionamento
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String
+
+  gym    Gym    @relation(fields: [gym_Id], references: [id])
+  gym_Id String
+
+  @@map("check_ins")
+}
+
+model Gym {
+  id          String  @id @default(uuid())
+  title       String
+  description String?
+  phone       String?
+  latitude    Decimal
+  longitude   Decimal
+
+  //relacionamento
+  checkIns CheckIn[]
+
+  @@map("gyms")
 }
