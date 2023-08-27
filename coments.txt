@@ -29,3 +29,10 @@ start image: docker start api-solid-pg# api-solid
 2 - pasta http e nosso controller - lidar com as entradas e saidas (resquest e response)
 3 - hash senha - yarn add bcryptjs - yarn add -D @types/bcryptjs
 4 - findUnique so pega id ou @unique
+
+
+----------------------
+
+Testes
+1- yarn add -D vitest vite-tsconfig-paths 
+2- testes unitarios nunca vai tocar em banco de dados

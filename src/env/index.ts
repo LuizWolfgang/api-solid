@@ -1,6 +1,8 @@
 import 'dotenv/config'
 import { z } from 'zod'
 
+//validação das variaveis de ambiente
+
 const envSchema = z.object({
   NODE_ENV: z.enum(['dev', 'test', 'production']).default('dev'),
   JWT_SECRET: z.string(),
