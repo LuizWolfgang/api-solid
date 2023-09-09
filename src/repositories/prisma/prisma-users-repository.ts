@@ -4,6 +4,10 @@ import { UsersRepository } from '../users.repository'
 
 //todos os metodos do banco
 export class PrismaUsersRepository implements UsersRepository {
+  async findById(id: string){
+    throw new Error('Method not implemented.')
+  }
+
   async findByEmail(email: string) {
     const user = await prisma.user.findUnique({
       where: {
