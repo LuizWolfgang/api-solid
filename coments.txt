@@ -36,3 +36,7 @@ start image: docker start api-solid-pg# api-solid
 Testes
 1- yarn add -D vitest vite-tsconfig-paths 
 2- testes unitarios nunca vai tocar em banco de dados
+
+
+o caso de uso (use case) é o requisito, a regra de negocio, ele vai estar ligado ao mundo externo
+ex: htpp
