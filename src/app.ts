@@ -1,15 +1,30 @@
 import fastify from "fastify";
-import { appRoutes } from "./http/routes";
+import fastifyCookie from "@fastify/cookie";
+import { usersRoutes } from "./http/controllers/users/routes";
+import { gymsRoutes } from "./http/controllers/gyms/routes";
 import { env } from "./env";
 import { ZodError } from "zod";
 import fastifyJwt from "@fastify/jwt";
+import { checkInsRoutes } from "./http/controllers/check-ins/routes";
+
 
 export const app = fastify();
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
+  cookie: {
+    cookieName: 'resfreshToken',
+    signed: false,
+  },
+  sign: {
+    expiresIn: '10m'
+  }
 });
 
-app.register(appRoutes);
+app.register(fastifyCookie);
+
+app.register(usersRoutes);
+app.register(gymsRoutes);
+app.register(checkInsRoutes);
 
 //tratando erros gerais da aplicação
 app.setErrorHandler((error, _, reply) => {
