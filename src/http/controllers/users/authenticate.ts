@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
-import { makeAuthenticateUseCase } from '../../../use-cases/factories/make-authenticate-use-case'
 import { InvalidCredentialsError } from '../../../use-cases/errors/invalid-credentials-error'
+import { makeAuthenticateUseCase } from '../../../use-cases/factories/make-authenticate-use-case'
 
 
 export async function authenticate(
@@ -37,22 +37,22 @@ export async function authenticate(
       {
         sign: {
           sub: user.id,
-          expiresIn: '7d'
+          expiresIn: '7d',
         },
       },
     )
-
+       console.log('aaaaaaa', refreshToken)
     return reply
-    .setCookie('refreshToken', refreshToken, {
-      path: '/', // todo backend pode ler o valor desse cookie
-      secure: true, // encriptado atraves do https
-      sameSite: true, // esse coockie so vai ser acessivel dentro desse site
-      httpOnly: true // so vai ser acessado por esse backend
-    })
-    .status(200)
-    .send({
-      token
-    })
+      .setCookie('refreshToken', refreshToken, {
+        path: '/',
+        secure: true,
+        sameSite: true,
+        httpOnly: true,
+      })
+      .status(200)
+      .send({
+        token,
+      })
   } catch (err) {
     if (err instanceof InvalidCredentialsError) {
       return reply.status(400).send({ message: err.message })
